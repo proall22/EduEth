@@ -203,7 +203,7 @@ export default function CoursePreview() {
 									? searchSuggestions.map((suggestion, index) => (
 											<button
 												key={index}
-												className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+												className="block w-full text-left px-4 py-2 text-sm text-gray-700 bg-gray-100 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-200 bg-transparent"
 												onClick={() =>
 													setSearchQuery(suggestion.split(": ")[1])
 												}
@@ -214,7 +214,7 @@ export default function CoursePreview() {
 									: filteredCourses.map((course) => (
 											<button
 												key={course.id}
-												className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+												className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 bg-transparent"
 												onClick={() => setSearchQuery(course.title)}
 											>
 												{course.title}

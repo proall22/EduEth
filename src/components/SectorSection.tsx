@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { User, School, GraduationCap, Briefcase } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const sectors = [
 	{
@@ -53,12 +54,12 @@ export default function SectorSection() {
 							<p className="text-gray-600 dark:text-gray-300 mb-4">
 								{sector.description}
 							</p>
-							<a
-								href={sector.link}
+							<Link
+								to={sector.link}
 								className="mt-auto bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-full transition duration-300"
 							>
 								Learn More
-							</a>
+							</Link>
 						</motion.div>
 					))}
 				</div>

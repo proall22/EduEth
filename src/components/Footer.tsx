@@ -1,5 +1,5 @@
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
-
+import { Link } from "react-router-dom";
 export default function Footer() {
 	return (
 		<footer className="bg-gray-900 text-white py-12">
@@ -16,36 +16,36 @@ export default function Footer() {
 						<h4 className="text-lg font-semibold mb-4">Quick Links</h4>
 						<ul className="space-y-2">
 							<li>
-								<a
-									href="#"
+								<Link
+									to="/about"
 									className="hover:text-primary transition duration-300"
 								>
 									About Us
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a
-									href="#"
+								<Link
+									to="/courses"
 									className="hover:text-primary transition duration-300"
 								>
 									Courses
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a
-									href="#"
+								<Link
+									to="/virtual-labs"
 									className="hover:text-primary transition duration-300"
 								>
 									Virtual Labs
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a
-									href="#"
+								<Link
+									to="/contact"
 									className="hover:text-primary transition duration-300"
 								>
 									Contact
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</div>
@@ -53,36 +53,36 @@ export default function Footer() {
 						<h4 className="text-lg font-semibold mb-4">Support</h4>
 						<ul className="space-y-2">
 							<li>
-								<a
-									href="#"
+								<Link
+									to="/faqs"
 									className="hover:text-primary transition duration-300"
 								>
 									FAQs
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a
-									href="#"
+								<Link
+									to="/help"
 									className="hover:text-primary transition duration-300"
 								>
 									Help Center
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a
-									href="#"
+								<Link
+									to="/privacy"
 									className="hover:text-primary transition duration-300"
 								>
 									Privacy Policy
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a
-									href="#"
+								<Link
+									to="/terms"
 									className="hover:text-primary transition duration-300"
 								>
 									Terms of Service
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</div>
@@ -91,15 +91,15 @@ export default function Footer() {
 						<p className="text-gray-400 mb-4">
 							Subscribe to our newsletter for the latest updates.
 						</p>
-						<form className="flex">
+						<form className="flex flex-col md:flex-row max-w-full">
 							<input
 								type="email"
 								placeholder="Your email"
-								className="bg-gray-800 text-white px-4 py-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary"
+								className="bg-gray-800 text-white px-3 py-1 text-sm rounded-md md:rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary mb-2 md:mb-0 w-full md:w-auto md:max-w-[240px] lg:max-w-[280px]"
 							/>
 							<button
 								type="submit"
-								className="bg-primary hover:bg-primary-dark px-4 py-2 rounded-r-md transition duration-300"
+								className="bg-primary hover:bg-primary-dark px-3 py-1 text-sm rounded-md md:rounded-l-none transition duration-300 whitespace-nowrap w-full md:w-auto lg:max-w-[120px]"
 							>
 								Subscribe
 							</button>
@@ -108,33 +108,33 @@ export default function Footer() {
 				</div>
 				<div className="mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
 					<p className="text-gray-400 text-sm">
-						&copy; 2024 EduPlatform. All rights reserved.
+						© 2024 EduPlatform. All rights reserved.
 					</p>
 					<div className="flex space-x-4 mt-4 md:mt-0">
-						<a
-							href="#"
+						<Link
+							to="#"
 							className="text-gray-400 hover:text-white transition duration-300"
 						>
 							<Facebook size={20} />
-						</a>
-						<a
-							href="#"
+						</Link>
+						<Link
+							to="#"
 							className="text-gray-400 hover:text-white transition duration-300"
 						>
 							<Twitter size={20} />
-						</a>
-						<a
-							href="#"
+						</Link>
+						<Link
+							to="#"
 							className="text-gray-400 hover:text-white transition duration-300"
 						>
 							<Instagram size={20} />
-						</a>
-						<a
-							href="#"
+						</Link>
+						<Link
+							to="#"
 							className="text-gray-400 hover:text-white transition duration-300"
 						>
 							<Linkedin size={20} />
-						</a>
+						</Link>
 					</div>
 				</div>
 			</div>

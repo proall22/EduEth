@@ -8,6 +8,9 @@ export default {
 	darkMode: "class",
 	theme: {
 		extend: {
+			screens: {
+				lg: "1200px",
+			},
 			colors: {
 				primary: "var(--primary)",
 				"primary-dark": "var(--primary-dark)",

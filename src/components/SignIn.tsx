@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export default function SignIn() {
 	const [formData, setFormData] = useState({
@@ -10,8 +12,9 @@ export default function SignIn() {
 	});
 	const [showPassword, setShowPassword] = useState(false);
 	const [errors, setErrors] = useState({});
+	const navigate = useNavigate();
 
-	const handleChange = (e) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value, type, checked } = e.target;
 		setFormData((prevData) => ({
 			...prevData,
@@ -20,7 +23,7 @@ export default function SignIn() {
 	};
 
 	const validateForm = () => {
-		let newErrors = {};
+		const newErrors: { email?: string; password?: string } = {};
 		if (!formData.email) newErrors.email = "Email is required";
 		else if (!/\S+@\S+\.\S+/.test(formData.email))
 			newErrors.email = "Email is invalid";
@@ -29,12 +32,46 @@ export default function SignIn() {
 		return Object.keys(newErrors).length === 0;
 	};
 
-	const handleSubmit = (e) => {
+	const handleLogin = async (formData: {
+		email: string;
+		password: string;
+		rememberMe: boolean;
+	}) => {
+		try {
+			const response = await fetch("http://localhost:5000/api/auth/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
+
+			const data = await response.json();
+
+			if (!response.ok) {
+				if (data.message === "Email not verified") {
+					toast.error("Please verify your email before logging in");
+					return false;
+				}
+				throw new Error(data.message);
+			}
+
+			// Store auth token
+			localStorage.setItem("authToken", data.token);
+			return true;
+		} catch (error) {
+			toast.error(error.message);
+			return false;
+		}
+	};
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (validateForm()) {
-			// Submit the form data
-			console.log("Form submitted:", formData);
-			// Here you would typically send the data to your backend
+			const success = await handleLogin(formData);
+			if (success) {
+				navigate("/dashboard");
+			}
 		}
 	};
 
@@ -47,7 +84,7 @@ export default function SignIn() {
 				className="max-w-md w-full space-y-8"
 			>
 				<div>
-					<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
+					<h2 className="text-center text-3xl font-extrabold text-gray-900 dark:text-white">
 						Sign in to your account
 					</h2>
 				</div>
@@ -123,12 +160,12 @@ export default function SignIn() {
 						</div>
 
 						<div className="text-sm">
-							<a
-								href="#"
+							<Link
+								to="#"
 								className="font-medium text-primary hover:text-primary-dark"
 							>
 								Forgot your password?
-							</a>
+							</Link>
 						</div>
 					</div>
 
@@ -156,8 +193,8 @@ export default function SignIn() {
 
 					<div className="mt-6 grid grid-cols-3 gap-3">
 						<div>
-							<a
-								href="#"
+							<Link
+								to="#"
 								className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
 							>
 								<span className="sr-only">Sign in with Google</span>
@@ -173,12 +210,12 @@ export default function SignIn() {
 										clipRule="evenodd"
 									/>
 								</svg>
-							</a>
+							</Link>
 						</div>
 
 						<div>
-							<a
-								href="#"
+							<Link
+								to="#"
 								className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
 							>
 								<span className="sr-only">Sign in with Apple</span>
@@ -194,12 +231,12 @@ export default function SignIn() {
 										clipRule="evenodd"
 									/>
 								</svg>
-							</a>
+							</Link>
 						</div>
 
 						<div>
-							<a
-								href="#"
+							<Link
+								to="#"
 								className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
 							>
 								<span className="sr-only">Sign in with Microsoft</span>
@@ -215,9 +252,25 @@ export default function SignIn() {
 										clipRule="evenodd"
 									/>
 								</svg>
-							</a>
+							</Link>
 						</div>
 					</div>
+				</div>
+				<div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+					<Link
+						to="/"
+						className="text-primary hover:text-primary-dark hover:underline transition-colors duration-200"
+					>
+						← Return to Home
+					</Link>
+					<span className="mx-2">•</span>
+					<span>Don't have an account?</span>{" "}
+					<Link
+						to="/signup"
+						className="text-primary hover:text-primary-dark font-semibold hover:underline transition-colors duration-200"
+					>
+						Sign up now!
+					</Link>
 				</div>
 			</motion.div>
 		</div>
